@@ -1,1 +1,1 @@
-module gitee.com/erik/KoalaGo
+module github.com/skyismine/KoalaGo

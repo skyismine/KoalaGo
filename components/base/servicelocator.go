@@ -3,13 +3,13 @@ package base
 //定义ServiceLocator接口，ServiceLocator必须实现该接口
 type IServiceLocator interface {
 	//根据 id 获取服务实例
-	GetService(id string) (service interface{}, err error)
+	GetService(id string) (service interface{})
 	//设置服务
-	SetService(id string, service interface{}) (err error)
+	SetService(id string, service interface{})
 	//删除服务
-	DelService(id string) (service interface{}, err error)
+	DelService(id string) (service interface{})
 	//根据 id 查看服务是否存在
-	HasService(id string) (has bool, err error)
+	HasService(id string) (has bool)
 }
 
 //服务定位模式（Service Locator Pattern）
@@ -23,4 +23,36 @@ type IServiceLocator interface {
 type ServiceLocator struct {
 	CComponent
 	services map[string]interface{}
+}
+
+func NewSL() IServiceLocator {
+	return &ServiceLocator{
+		services:make(map[string]interface{}, 100),
+	}
+}
+
+func (sl *ServiceLocator) GetService(id string) (service interface{}) {
+	service, ok := sl.services[id]
+	if !ok {
+		return nil
+	}
+	return service
+}
+
+func (sl *ServiceLocator) SetService(id string, service interface{}) {
+	sl.services[id] = service
+}
+
+func (sl *ServiceLocator) DelService(id string) (service interface{}) {
+	service, ok := sl.services[id]
+	if !ok {
+		return nil
+	}
+	delete(sl.services, id)
+	return service
+}
+
+func (sl *ServiceLocator) HasService(id string) (has bool) {
+	_, has = sl.services[id]
+	return
 }

@@ -15,13 +15,5 @@ type CComponent struct {
 	BComponent
 }
 
-//Module 继承自 ServiceLocator 用来提供服务定位
-//通过 ServiceLocator 达到解耦和控制反转的目的
-type Module struct {
-	ServiceLocator
-}
 
-//Application 继承自 Module，是应用的入口模块
-type Application struct {
-	Module
-}
+
